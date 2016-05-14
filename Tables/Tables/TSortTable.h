@@ -1,0 +1,96 @@
+#ifndef _T_SORT_TABLE_H_
+#define _T_SORT_TABLE_H_
+
+#include "TArrayTable.h"
+#include "TScanTable.h"
+
+namespace Tables
+{
+	using namespace System;
+	using namespace System::ComponentModel;
+	using namespace System::Collections;
+	using namespace System::Windows::Forms;
+	using namespace System::Data;
+	using namespace System::Drawing;
+
+	class TSortTable :public TArrayTable
+	{
+	private:
+		void SortInsert();
+		void SortHoar();
+
+	public:
+		TSortTable(int size) :TArrayTable(size) {};
+		TSortTable(TScanTable sc_tab);
+		virtual ~TSortTable() {};
+
+		virtual bool Find(TKey key);
+		virtual void InsRec(TRecord rec);
+		virtual void DelRec(TKey key);
+				
+	};
+
+	bool TSortTable::Find(TKey key)
+	{
+		bool flag = false;
+		int pos, left = 0, right = DataCount - 1;
+		while (left <= right)
+		{
+			Eff++;
+			pos = (right + left) / 2;
+			if (pRec[pos].GetKey() == key)
+			{
+				right = pos;
+				left = pos + 1;
+				flag = true;
+			}
+			if (pRec[pos].GetKey() < key)
+				left = pos + 1;
+			else
+				right = pos - 1;
+		}
+		if (right < 0 || pRec[pos].GetKey() != key)
+			right++;
+		curr = right;
+		return flag;
+	}
+
+	void TSortTable::InsRec(TRecord rec)
+	{
+		if (IsFull()) return;
+		if (!Find(rec.GetKey()))
+		{
+			for (int pos = DataCount; pos < curr; pos--)
+			{
+				pRec[pos] = pRec[pos - 1];
+				Eff++;
+			}
+			pRec[curr] = rec;
+			DataCount++;
+		}
+		else
+		{
+			//действие, если вставляемая запись уже есть в таблице
+		}
+	}
+
+	void TSortTable::DelRec(TKey key)
+	{
+		if (IsEmpty()) return;
+		if (Find(key))
+		{
+			for (int pos = curr; pos < DataCount - 1; pos++)
+			{
+				pRec[pos] = pRec[pos + 1];
+				Eff++;
+			}
+			DataCount--;
+		}
+		else
+		{
+			//действие, если удаляемой записи в таблице нет
+		}
+	}
+}
+
+#endif
