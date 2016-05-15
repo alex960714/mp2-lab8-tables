@@ -49,8 +49,8 @@ namespace Tables
 		for (Reset(); !IsEnd(); GoNext())
 		{
 			TRecord curr = GetCurr();
-			grid[0, i]->value = gcnew System::String(curr.GetKey().c_str());
-			grid[1, i]->value = gcnew System::String(curr.GetValue().c_str());
+			grid[0, i]->Value = gcnew System::String(curr.GetKey().c_str());
+			grid[1, i]->Value = gcnew System::String(curr.GetValue().c_str());
 		}
 	}
 

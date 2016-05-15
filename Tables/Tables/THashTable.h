@@ -31,8 +31,8 @@ namespace Tables
 
 		virtual void Reset();
 		virtual void GoNext();
-		virtual bool IsEnd();
-		virtual TRecord GetCurr();
+		virtual bool IsEnd() { return curr == maxSize; };
+		virtual TRecord GetCurr() { return pRec[curr]; };
 	};
 
 	int THashTable::HashFunc(TKey key)
@@ -54,6 +54,58 @@ namespace Tables
 		curr = -1;
 		DataCount = 0;
 		Eff = 0;
+	}
+
+	bool THashTable::Find(TKey key)
+	{
+		curr = HashFunc(key) % maxSize;
+		free = -1;
+		for (int i = 0; i < maxSize; i++)
+		{
+			Eff++;
+			if (pRec[curr].GetKey() == key)
+				return true;
+			if (pRec[curr].GetKey() == "&" && free == -1)
+				free = curr;
+			if (pRec[curr].GetKey() == "")
+				curr = (step + curr) % maxSize;  //???
+		}
+		if (free != -1)
+			curr = free;
+		return false;
+	}
+
+	void THashTable::InsRec(TRecord rec)
+	{
+		if (IsFull()) return;
+		if (!Find(rec.GetKey()))
+		{
+			pRec[curr] = rec;
+			DataCount++;
+		}
+	}
+
+	void THashTable::DelRec(TKey key)
+	{
+		if (IsEmpty()) return;
+		if (Find(key))
+		{
+			pRec[curr].SetKey("&");
+			DataCount--;
+		}
+	}
+
+	void THashTable::Reset()
+	{
+		curr = 0;
+		while (pRec[curr].GetKey() != "&" && pRec[curr].GetKey() != "" && curr < maxSize)
+			curr++;
+	}
+
+	void THashTable::GoNext()
+	{
+		while (pRec[curr].GetKey() != "&" && pRec[curr].GetKey() != "")
+			curr++;
 	}
 }
 

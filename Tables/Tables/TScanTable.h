@@ -39,7 +39,7 @@ namespace Tables
 	void TScanTable::InsRec(TRecord rec)
 	{
 		if (IsFull()) return;
-		if (!Find())
+		if (!Find(rec.GetKey()))
 		{
 			pRec[curr] = rec;
 			DataCount++;

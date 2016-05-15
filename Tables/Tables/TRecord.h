@@ -15,7 +15,7 @@ private:
 	TValue val;
 
 public:
-	TRecord(TKey _k, TValue _v) { key = _k; val = _v; };
+	TRecord(TKey _k = "", TValue _v = "") { key = _k; val = _v; };
 	~TRecord() {};
 
 	void SetKey(TKey _k) { key = _k; };
