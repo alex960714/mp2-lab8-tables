@@ -91,6 +91,26 @@ namespace Tables
 			//действие, если удаляемой записи в таблице нет
 		}
 	}
+
+	void TSortTable::SortInsert()
+	{
+		TRecord _curr;
+		for (int i = 1; i < DataCount; i++)
+		{
+			_curr = pRec[i];
+			for (int j = 0; j < i; j++)
+			{
+				if (pRec[i] > _curr)
+				{
+					for (int k = i; k > j; k--)
+						pRec[k] = pRec[k - 1];
+					pRec[j] = _curr;
+					break;
+				}
+			}
+		}
+	}
+
 }
 
 #endif
