@@ -17,7 +17,7 @@ namespace Tables
 	{
 	private:
 		void SortInsert();
-		void SortHoar();
+		void SortHoar(int start, int end, TKey mid);
 
 	public:
 		TSortTable(int size) :TArrayTable(size) {};
@@ -109,6 +109,30 @@ namespace Tables
 				}
 			}
 		}
+	}
+
+	void TSortTable::SortHoar(int start, int end, TKey mid)
+	{
+		int st = start, en = end;
+		while (st < en)
+		{
+			if (pRec[st].GetKey() < mid)
+				st++;
+			else if (pRec[en].GetKey() > mid)
+				en--;
+			else
+			{
+				TKey tmp = pRec[st].GetKey();
+				pRec[st].SetKey(pRec[en].GetKey());
+				pRec[en].SetKey(tmp);
+			}
+		}
+		TKey mid1 = pRec[(st+start)/2].GetKey();  //!!!
+		TKey mid2 = pRec[(en+end)/2].GetKey();    //!!!
+		if (st-start>1)
+			SortHoar(start, st, mid1);
+		if (end-en>1)
+			SortHoar(en, end, mid2);
 	}
 
 }
