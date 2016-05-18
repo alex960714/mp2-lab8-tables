@@ -20,6 +20,8 @@ namespace Tables
 		TTreeNode *pRoot, *pCurr;
 		T_Stack <TTreeNode*> st;
 		TTreeNode **pRef;
+		int pos;
+
 	public:
 		TTreeTable() :TTable(), st(100)
 		{
@@ -35,7 +37,7 @@ namespace Tables
 
 		virtual void Reset();
 		virtual void GoNext();
-		virtual bool IsEnd();
+		virtual bool IsEnd() { return pos == DataCount; };
 		virtual TRecord GetCurr() { return pCurr->rec; };
 
 	};
@@ -67,6 +69,61 @@ namespace Tables
 			DataCount++;
 		}
 	}
+
+	void TTreeTable::DelRec(TKey key)
+	{
+		if (!Find(key))
+			return;
+		TTreeNode *p = *pRef;
+		if ((*pRef)->pLeft == NULL)
+			*pRef = (*pRef)->pRight;
+		else if ((*pRef)->pRight == NULL)
+			*pRef = (*pRef)->pLeft;
+		else
+		{
+			TTreeNode **tmp = &((*pRef)->pLeft);
+			while ((*tmp)->pRight != NULL)
+			{
+				*tmp = (*tmp)->pRight;
+				Eff++;
+				(*pRef)->rec = (*tmp)->rec;
+				p = *tmp;
+				*tmp = (*tmp)->pLeft;
+			}
+		}
+		delete p;
+		DataCount--;
+	}
+
+	void TTreeTable::Reset()
+	{
+		pCurr = pRoot;
+		st.Clear();
+		pos = 0;
+		while (pCurr != NULL)
+		{
+			st.Push(pCurr);
+			pCurr = pCurr->pLeft;
+		}
+		pCurr = st.Pop();
+	}
+
+	void TTreeTable::GoNext()
+	{
+		if (pCurr != NULL)
+		{
+			pos++;
+			pCurr = pCurr->pRight;
+			while (pCurr != NULL)
+			{
+				st.Push(pCurr);
+				pCurr = pCurr->pLeft;
+			}
+			if (!st.IsEmpty())
+				pCurr = st.Pop();
+		}
+	}
+
 }
 
 

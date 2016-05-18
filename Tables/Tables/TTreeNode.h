@@ -9,12 +9,13 @@ public:
 	TRecord rec;
 	TTreeNode *pLeft, *pRight;
 
-	TRecord(TRecord _rec, TTreeNode *pL = NULL, TTreeNode *pR = NULL)
+	TTreeNode(TRecord _rec, TTreeNode *pL = NULL, TTreeNode *pR = NULL)
 	{
 		rec = _rec;
 		pLeft = pL;
 		pRight = pR;
-	}
+	};
+	~TTreeNode() {};
 };
 
 
