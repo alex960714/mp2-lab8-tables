@@ -21,13 +21,13 @@ namespace Tables
 
 	public:
 		TSortTable(int size) :TArrayTable(size) {};
-		TSortTable(TScanTable sc_tab);
+		TSortTable(TScanTable &sc_tab);
 		virtual ~TSortTable() {};
 
 		virtual bool Find(TKey key);
 		virtual void InsRec(TRecord rec);
 		virtual void DelRec(TKey key);
-				
+
 	};
 
 	bool TSortTable::Find(TKey key)
@@ -127,14 +127,25 @@ namespace Tables
 				pRec[en].SetKey(tmp);
 			}
 		}
-		TKey mid1 = pRec[(st+start)/2].GetKey();  //!!!
-		TKey mid2 = pRec[(en+end)/2].GetKey();    //!!!
-		if (st-start>1)
+		TKey mid1 = pRec[(st + start) / 2].GetKey();  
+		TKey mid2 = pRec[(en + end) / 2].GetKey();    
+		if (st - start>1)
 			SortHoar(start, st, mid1);
-		if (end-en>1)
+		if (end - en > 1)
 			SortHoar(en, end, mid2);
 	}
 
+	TSortTable::TSortTable(TScanTable &sc_tab): TArrayTable(sc_tab.GetMaxSize())
+	{
+		int i = 0;
+		for (sc_tab.Reset(); !sc_tab.IsEnd(); sc_tab.GoNext())
+		{
+			pRec[i] = sc_tab.GetCurr();
+			i++;
+			DataCount++;
+		}
+		SortInsert();
+	}
 }
 
 #endif

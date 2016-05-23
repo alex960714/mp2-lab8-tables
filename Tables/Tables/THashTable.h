@@ -51,6 +51,11 @@ namespace Tables
 		maxSize = _size;
 		step = _step;
 		pRec = new TRecord[maxSize];
+		for (int i = 0; i < maxSize; i++)
+		{
+			pRec[i].SetKey("");
+			pRec[i].SetValue("");
+		}
 		curr = -1;
 		DataCount = 0;
 		Eff = 0;
@@ -67,8 +72,11 @@ namespace Tables
 				return true;
 			if (pRec[curr].GetKey() == "&" && free == -1)
 				free = curr;
-			if (pRec[curr].GetKey() == "")
-				curr = (step + curr) % maxSize;  //???
+			if (pRec[curr].GetKey() != "")
+			{
+				curr = (step + curr) % maxSize;
+				break;
+			}
 		}
 		if (free != -1)
 			curr = free;

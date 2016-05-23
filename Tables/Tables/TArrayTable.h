@@ -27,6 +27,8 @@ namespace Tables
 		virtual void Reset() { curr = 0; }
 		virtual void GoNext() { curr++; }
 		virtual bool IsEnd() { return curr == DataCount; };
+
+		int GetMaxSize() const { return maxSize; };
 	};
 
 	TArrayTable::TArrayTable(int size)
