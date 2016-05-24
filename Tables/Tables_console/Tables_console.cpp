@@ -36,7 +36,12 @@ int main()
 	{
 		switch (op)
 		{
-		case 1: cout << "Введите число элементов в таблице:" << endl;
+		case 1: scan = new Tables::TScanTable(maxSize);
+			sort = new Tables::TSortTable(maxSize);
+			hash = new Tables::THashTable(maxSize, step);
+			tree = new Tables::TTreeTable;
+			tab = scan;
+			cout << "Введите число элементов в таблице:" << endl;
 			cin >> size;
 			cout << "Заполните таблицу:" << endl;
 			for (int i = 0; i < size; i++)
