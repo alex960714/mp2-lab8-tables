@@ -5,12 +5,12 @@
 
 namespace Tables
 {
-	using namespace System;
+	/*using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
-	using namespace System::Drawing;
+	using namespace System::Drawing;*/
 
 	class TTable
 	{
@@ -37,10 +37,11 @@ namespace Tables
 		virtual bool IsEnd() = 0;
 
 		virtual TRecord GetCurr() = 0;
-		void Print(DataGridView^ grid);
+		//void Print(DataGridView^ grid);
+		void Print();
 	};
 
-	void TTable::Print(DataGridView^ grid)
+	/*void TTable::Print(DataGridView^ grid)
 	{
 		grid->ColumnCount = 2;
 		grid->RowCount = DataCount;
@@ -52,6 +53,16 @@ namespace Tables
 			grid[0, i]->Value = gcnew System::String(curr.GetKey().c_str());
 			grid[1, i]->Value = gcnew System::String(curr.GetValue().c_str());
 		}
+	}*/
+
+	void TTable::Print()
+	{
+		cout << "-----+------------" << endl;
+		for (Reset(); !IsEnd(); GoNext())
+		{
+			cout << GetCurr();
+		}
+		cout << "-----+------------" << endl;
 	}
 
 }

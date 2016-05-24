@@ -5,12 +5,12 @@
 
 namespace Tables
 {
-	using namespace System;
+	/*using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
-	using namespace System::Drawing;
+	using namespace System::Drawing;*/
 
 	class THashTable :public TTable
 	{
@@ -21,7 +21,7 @@ namespace Tables
 		TRecord *pRec;
 
 	public:
-		THashTable(int _size, int _step);
+		THashTable(int _size=0, int _step=0);
 		virtual ~THashTable() { delete[] pRec; pRec = NULL; };
 
 		virtual bool IsFull() { return maxSize == DataCount; };
@@ -75,7 +75,6 @@ namespace Tables
 			if (pRec[curr].GetKey() != "")
 			{
 				curr = (step + curr) % maxSize;
-				break;
 			}
 		}
 		if (free != -1)
@@ -106,13 +105,14 @@ namespace Tables
 	void THashTable::Reset()
 	{
 		curr = 0;
-		while (pRec[curr].GetKey() != "&" && pRec[curr].GetKey() != "" && curr < maxSize)
+		while ((pRec[curr].GetKey() == "&" || pRec[curr].GetKey() == "") && curr < maxSize)
 			curr++;
 	}
 
 	void THashTable::GoNext()
 	{
-		while (pRec[curr].GetKey() != "&" && pRec[curr].GetKey() != "")
+		curr++;
+		while ((pRec[curr].GetKey() == "&" || pRec[curr].GetKey() == "") && curr<maxSize)
 			curr++;
 	}
 }

@@ -7,12 +7,12 @@
 
 namespace Tables
 {
-	using namespace System;
+	/*using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
-	using namespace System::Drawing;
+	using namespace System::Drawing;*/
 
 	class TTreeTable :public TTable
 	{
@@ -31,6 +31,7 @@ namespace Tables
 		}
 		virtual ~TTreeTable() {};
 
+		virtual bool IsFull() { return false; };
 		virtual bool Find(TKey key);
 		virtual void InsRec(TRecord rec);
 		virtual void DelRec(TKey key);

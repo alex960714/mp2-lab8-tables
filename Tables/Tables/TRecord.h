@@ -2,6 +2,7 @@
 #define _T_RECORD_H_
 
 #include <string.h>
+#include <string>
 #include <iostream>
 using namespace std;
 
@@ -33,7 +34,49 @@ public:
 		this->val = rec.val;
 		return *this;
 	}
+
+
+	friend istream& operator>>(istream &is, TRecord &rec)
+	{
+		string _key, _val;
+		is >> _key;
+		is >> _val;
+		rec.key = _key;
+		rec.val = _val;
+		return is;
+	}
+
+	friend ostream& operator<<(ostream &os, const TRecord &rec)
+	{
+		string _key = rec.key;
+		string _val = rec.val;
+		os << " " << _key << " | " << _val << " " << endl;
+		return os;
+	}
 };
 
+/*istream& operator>>(istream &is, TKey &key)
+{
+	is >> key;
+	return is;
+}*/
+
+/*istream& operator>>(istream &is, TValue val)
+{
+	is >> val;
+	return is;
+}*/
+
+/*ostream& operator<<(ostream &os, const TKey &key)
+{
+	os << key;
+	return os;
+}*/
+
+/*ostream& operator<<(ostream &os, TValue val)
+{
+	os << val;
+	return os;
+}*/
 
 #endif

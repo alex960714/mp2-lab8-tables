@@ -6,12 +6,12 @@
 
 namespace Tables
 {
-	using namespace System;
+	/*using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
-	using namespace System::Drawing;
+	using namespace System::Drawing;*/
 
 	class TSortTable :public TArrayTable
 	{
@@ -20,7 +20,7 @@ namespace Tables
 		void SortHoar(int start, int end, TKey mid);
 
 	public:
-		TSortTable(int size) :TArrayTable(size) {};
+		TSortTable(int size=0) :TArrayTable(size) {};
 		TSortTable(TScanTable &sc_tab);
 		virtual ~TSortTable() {};
 
@@ -60,7 +60,7 @@ namespace Tables
 		if (IsFull()) return;
 		if (!Find(rec.GetKey()))
 		{
-			for (int pos = DataCount; pos < curr; pos--)
+			for (int pos = DataCount; pos > curr; pos--)
 			{
 				pRec[pos] = pRec[pos - 1];
 				Eff++;
@@ -144,7 +144,7 @@ namespace Tables
 			i++;
 			DataCount++;
 		}
-		SortInsert();
+		SortHoar(0, DataCount-1,pRec[DataCount/2].GetKey());
 	}
 }
 

@@ -5,17 +5,17 @@
 
 namespace Tables
 {
-	using namespace System;
+/*	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
-	using namespace System::Drawing;
+	using namespace System::Drawing;*/
 
 	class TScanTable :public TArrayTable
 	{
 	public:
-		TScanTable(int size) :TArrayTable(size) {};
+		TScanTable(int size=0) :TArrayTable(size) {};
 		virtual ~TScanTable() {};
 
 		virtual bool Find(TKey key);
