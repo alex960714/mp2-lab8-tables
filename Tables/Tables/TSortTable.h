@@ -49,7 +49,7 @@ namespace Tables
 			else
 				right = pos - 1;
 		}
-		if (right < 0 || pRec[pos].GetKey() != key)
+		//if (right < 0 || pRec[pos].GetKey() != key)
 			right++;
 		curr = right;
 		return flag;
@@ -70,7 +70,7 @@ namespace Tables
 		}
 		else
 		{
-			//действие, если вставляемая запись уже есть в таблице
+			cout << "Данная запись уже есть в таблице" << endl;
 		}
 	}
 
@@ -88,7 +88,7 @@ namespace Tables
 		}
 		else
 		{
-			//действие, если удаляемой записи в таблице нет
+			cout << "Данной записи нет в таблице" << endl;
 		}
 	}
 

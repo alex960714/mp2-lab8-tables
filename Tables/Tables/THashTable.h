@@ -90,6 +90,10 @@ namespace Tables
 			pRec[curr] = rec;
 			DataCount++;
 		}
+		else
+		{
+			cout << "Данная запись уже есть в таблице" << endl;
+		}
 	}
 
 	void THashTable::DelRec(TKey key)
@@ -100,19 +104,23 @@ namespace Tables
 			pRec[curr].SetKey("&");
 			DataCount--;
 		}
+		else
+		{
+			cout << "Данной записи нет в таблице" << endl;
+		}
 	}
 
 	void THashTable::Reset()
 	{
 		curr = 0;
-		while ((pRec[curr].GetKey() == "&" || pRec[curr].GetKey() == "") && curr < maxSize)
+		while (curr < maxSize && (pRec[curr].GetKey() == "&" || pRec[curr].GetKey() == ""))
 			curr++;
 	}
 
 	void THashTable::GoNext()
 	{
 		curr++;
-		while ((pRec[curr].GetKey() == "&" || pRec[curr].GetKey() == "") && curr<maxSize)
+		while (curr<maxSize && (pRec[curr].GetKey() == "&" || pRec[curr].GetKey() == ""))
 			curr++;
 	}
 }

@@ -69,12 +69,19 @@ namespace Tables
 			*pRef = tmp;
 			DataCount++;
 		}
+		else
+		{
+			cout << "Данная запись уже есть в таблице" << endl;
+		}
 	}
 
 	void TTreeTable::DelRec(TKey key)
 	{
 		if (!Find(key))
+		{
+			cout << "Данной записи нет в таблице" << endl;
 			return;
+		}
 		TTreeNode *p = *pRef;
 		if ((*pRef)->pLeft == NULL)
 			*pRef = (*pRef)->pRight;

@@ -14,33 +14,126 @@ using namespace std;
 
 int main()
 {
-	const int size = 5;
-	Tables::TScanTable scan(size);
-	Tables::TSortTable sort(size);
-	Tables::THashTable hash(size+2,2);
-	Tables::TTreeTable tree;
+	setlocale(LC_CTYPE, "Russian");
+	int maxSize, step;
+	cout << "Введите максимальный размер таблиц:" << endl;
+	cin >> maxSize;
+	cout << "Введите величину шага для хэш-таблицы:" << endl;
+	cin >> step;
+	Tables::TScanTable *scan = new Tables::TScanTable(maxSize);
+	Tables::TSortTable *sort = new Tables::TSortTable(maxSize);
+	Tables::THashTable *hash= new Tables::THashTable(maxSize,step);
+	Tables::TTreeTable *tree=new Tables::TTreeTable;
+	Tables::TTable *tab = scan;
 	TRecord rec;
 	TKey key;
 	TValue val;
-	setlocale(LC_CTYPE, "Russian");
-	cout << "Заполните таблицу:" << endl;
-	for (int i = 0; i < size; i++)
+	int op = 1;
+	int tab_num = 1;
+	int size;
+
+	do
 	{
-		cin >> rec;
-		TRecord rec2(rec);
-		scan.InsRec(rec);
-		sort.InsRec(rec);
-		hash.InsRec(rec);
-		tree.InsRec(rec);
-	}
-	cout << "Таблица для просмотра:" << endl ;
-	scan.Print();
-	cout << "Отсортированная таблица:" << endl;
-	sort.Print();
-	cout << "Хэш-таблица:" << endl;
-	hash.Print();
-	cout << "Древовидная таблица:" << endl;
-	tree.Print();
+		switch (op)
+		{
+		case 1: cout << "Введите число элементов в таблице:" << endl;
+			cin >> size;
+			cout << "Заполните таблицу:" << endl;
+			for (int i = 0; i < size; i++)
+			{
+				cin >> rec;
+				scan->InsRec(rec);
+				sort->InsRec(rec);
+				hash->InsRec(rec);
+				tree->InsRec(rec);
+			}
+			break;
+
+		case 2: cout << "Выберите вид таблицы" << endl;
+			cout << "1. Таблица для просмотра" << endl;
+			cout << "2. Отсортированная таблица" << endl;
+			cout << "3. Хэш-таблица" << endl;
+			cout << "4. Древовидная таблица" << endl;
+			cin >> tab_num;
+			switch (tab_num)
+			{
+			case 1: tab = scan;
+				break;
+			case 2: tab = sort;
+				break;
+			case 3: tab = hash;
+				break;
+			case 4: tab = tree;
+				break;
+			default: cout << "Некорректный ввод!" << endl;
+			}
+			break;
+
+		case 3: switch (tab_num)
+		{
+		case 1: cout << "Таблица для просмотра:" << endl;
+			scan->Print();
+			break;
+
+		case 2: cout << "Отсортированная таблица:" << endl;
+			sort->Print();
+			break;
+
+		case 3: cout << "Хэш-таблица:" << endl;
+			hash->Print();
+			break;
+
+		case 4: cout << "Древовидная таблица:" << endl;
+			tree->Print();
+			break;
+		}
+			break;
+
+		case 4: cout << "Введите ключ элемента поиска:" << endl;
+				cin >> key;
+				tab->ResetEff();
+				if (tab->Find(key))
+					cout << "Элемент найден - " << tab->GetCurr() << endl;
+				else
+					cout << "Элемент не найден" << endl;
+				cout << "Эффективность - " << tab->GetEff() << endl;
+				break;
+
+		case 5: cout << "Заполните поля элемента, который хотите вставить:" << endl;
+			cin >> rec;
+			tab->ResetEff();
+			tab->InsRec(rec);
+			cout << "Эффективность - " << tab->GetEff() << endl;
+			break;
+
+		case 6: cout << "Введите ключ элемента, который хотите удалить:" << endl;
+			cin >> key;
+			tab->ResetEff();
+			tab->DelRec(key);
+			cout << "Эффективность - " << tab->GetEff() << endl;
+			break;
+
+		case 7: sort = new Tables::TSortTable(*scan);
+			tab_num = 2;
+			cout << "Таблица отсортирована" << endl;
+			break;
+
+		case 8: break;
+
+		default: cout << "Некорректный ввод! Введите значение заново" << endl;
+		}
+		cout << "Выберите операцию:" << endl;
+		cout << "1. Заполнить таблицы" << endl;
+		cout << "2. Выбрать вид таблицы (по умолчанию - таблица для просмотра)" << endl;
+		cout << "3. Вывод таблицы на экран" << endl;
+		cout << "4. Поиск элемента" << endl;
+		cout << "5. Вставить элемент" << endl;
+		cout << "6. Удалить элемент" << endl;
+		cout << "7. Отсортировать таблицу для просмотра" << endl;
+		cout << "8. Завершение работы" << endl;
+		cin >> op;
+	} while (op != 8);
+	
     return 0;
 }
 
