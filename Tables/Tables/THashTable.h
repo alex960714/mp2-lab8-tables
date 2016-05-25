@@ -76,6 +76,7 @@ namespace Tables
 			{
 				curr = (step + curr) % maxSize;
 			}
+			else break;
 		}
 		if (free != -1)
 			curr = free;

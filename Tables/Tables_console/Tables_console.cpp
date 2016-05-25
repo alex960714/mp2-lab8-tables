@@ -8,6 +8,7 @@
 #include "THashTable.h"
 #include "TTreeTable.h"
 #include <string.h>
+#include <stdlib.h>
 #include <iostream>
 using namespace std;
 
@@ -43,10 +44,21 @@ int main()
 			tab = scan;
 			cout << "Введите число элементов в таблице:" << endl;
 			cin >> size;
-			cout << "Заполните таблицу:" << endl;
+			//cout << "Заполните таблицу:" << endl;
 			for (int i = 0; i < size; i++)
 			{
-				cin >> rec;
+				key = "";
+				val = "";
+				int j = 0;
+				while (j < 3)
+				{
+					key += (rand() % 10 + '0');
+					val += (rand()%10 + '0');
+					j++;
+				}
+				//cin >> rec;
+				rec.SetKey(key);
+				rec.SetValue(val);
 				scan->InsRec(rec);
 				sort->InsRec(rec);
 				hash->InsRec(rec);
