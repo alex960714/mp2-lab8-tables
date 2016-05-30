@@ -83,22 +83,28 @@ namespace Tables
 			return;
 		}
 		TTreeNode *p = *pRef;
-		if ((*pRef)->pLeft == NULL)
-			*pRef = (*pRef)->pRight;
-		else if ((*pRef)->pRight == NULL)
-			*pRef = (*pRef)->pLeft;
-		else
+		if ((*pRef)->pLeft != NULL || (*pRef)->pRight != NULL)
 		{
-			TTreeNode **tmp = &((*pRef)->pLeft);
-			while ((*tmp)->pRight != NULL)
+			if ((*pRef)->pLeft == NULL)
+				*pRef = (*pRef)->pRight;
+			else if ((*pRef)->pRight == NULL)
+				*pRef = (*pRef)->pLeft;
+			else
 			{
-				*tmp = (*tmp)->pRight;
-				Eff++;
-				(*pRef)->rec = (*tmp)->rec;
-				p = *tmp;
+				TTreeNode **tmp = &((*pRef)->pLeft);
+				//*tmp = (*pRef)->pLeft;
+				while ((*tmp)->pRight != NULL)
+				{
+					tmp = &((*tmp)->pRight);
+					Eff++;
+					(*pRef)->rec = (*tmp)->rec;
+					p = *tmp;
+				}
 				*tmp = (*tmp)->pLeft;
 			}
 		}
+		else 
+			pRef = NULL;
 		delete p;
 		DataCount--;
 	}
