@@ -42,6 +42,8 @@ namespace Tables {
 	private: System::Windows::Forms::RadioButton^  radioButton4;
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::GroupBox^  groupBox1;
+	private: System::Windows::Forms::TableLayoutPanel^  tableLayoutPanel1;
+	private: System::Windows::Forms::VScrollBar^  vScrollBar1;
 
 	private:
 		/// <summary>
@@ -62,6 +64,8 @@ namespace Tables {
 			this->radioButton4 = (gcnew System::Windows::Forms::RadioButton());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->vScrollBar1 = (gcnew System::Windows::Forms::VScrollBar());
 			this->groupBox1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -137,11 +141,40 @@ namespace Tables {
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Тип таблицы";
 			// 
+			// tableLayoutPanel1
+			// 
+			this->tableLayoutPanel1->BackColor = System::Drawing::Color::White;
+			this->tableLayoutPanel1->CellBorderStyle = System::Windows::Forms::TableLayoutPanelCellBorderStyle::InsetDouble;
+			this->tableLayoutPanel1->ColumnCount = 2;
+			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				50)));
+			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				50)));
+			this->tableLayoutPanel1->Location = System::Drawing::Point(53, 37);
+			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
+			this->tableLayoutPanel1->RowCount = 4;
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
+			this->tableLayoutPanel1->Size = System::Drawing::Size(200, 100);
+			this->tableLayoutPanel1->TabIndex = 7;
+			this->tableLayoutPanel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::tableLayoutPanel1_Paint);
+			// 
+			// vScrollBar1
+			// 
+			this->vScrollBar1->Location = System::Drawing::Point(256, 37);
+			this->vScrollBar1->Name = L"vScrollBar1";
+			this->vScrollBar1->Size = System::Drawing::Size(17, 100);
+			this->vScrollBar1->TabIndex = 0;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(652, 400);
+			this->Controls->Add(this->vScrollBar1);
+			this->Controls->Add(this->tableLayoutPanel1);
 			this->Controls->Add(this->groupBox1);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
@@ -158,6 +191,9 @@ namespace Tables {
 private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 }
 private: System::Void radioButton1_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void tableLayoutPanel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+	
 }
 };
 }
