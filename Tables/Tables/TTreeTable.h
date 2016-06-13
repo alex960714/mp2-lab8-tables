@@ -92,7 +92,8 @@ namespace Tables
 			else
 			{
 				TTreeNode **tmp = &((*pRef)->pLeft);
-				//*tmp = (*pRef)->pLeft;
+				(*pRef)->rec = (*tmp)->rec;
+				p = *tmp;
 				while ((*tmp)->pRight != NULL)
 				{
 					tmp = &((*tmp)->pRight);
@@ -104,7 +105,7 @@ namespace Tables
 			}
 		}
 		else 
-			pRef = NULL;
+			*pRef = NULL;
 		delete p;
 		DataCount--;
 	}
