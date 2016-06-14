@@ -21,11 +21,11 @@ int main()
 	cin >> maxSize;
 	cout << "Введите величину шага для хэш-таблицы:" << endl;
 	cin >> step;
-	Tables::TScanTable *scan = new Tables::TScanTable(maxSize);
-	Tables::TSortTable *sort = new Tables::TSortTable(maxSize);
-	Tables::THashTable *hash= new Tables::THashTable(maxSize,step);
-	Tables::TTreeTable *tree=new Tables::TTreeTable;
-	Tables::TTable *tab = scan;
+	TScanTable *scan = new TScanTable(maxSize);
+	TSortTable *sort = new TSortTable(maxSize);
+	THashTable *hash= new THashTable(maxSize,step);
+	TTreeTable *tree=new TTreeTable;
+	TTable *tab = scan;
 	TRecord rec;
 	TKey key;
 	TValue val;
@@ -37,14 +37,13 @@ int main()
 	{
 		switch (op)
 		{
-		case 1: scan = new Tables::TScanTable(maxSize);
-			sort = new Tables::TSortTable(maxSize);
-			hash = new Tables::THashTable(maxSize, step);
-			tree = new Tables::TTreeTable;
+		case 1: scan = new TScanTable(maxSize);
+			sort = new TSortTable(maxSize);
+			hash = new THashTable(maxSize, step);
+			tree = new TTreeTable;
 			tab = scan;
 			cout << "Введите число элементов в таблице:" << endl;
 			cin >> size;
-			//cout << "Заполните таблицу:" << endl;
 			for (int i = 0; i < size; i++)
 			{
 				key = "";
@@ -56,7 +55,6 @@ int main()
 					val += (rand()%10 + '0');
 					j++;
 				}
-				//cin >> rec;
 				rec.SetKey(key);
 				rec.SetValue(val);
 				scan->InsRec(rec);
@@ -130,7 +128,7 @@ int main()
 			cout << "Эффективность - " << tab->GetEff() << endl;
 			break;
 
-		case 7: sort = new Tables::TSortTable(*scan);
+		case 7: sort = new TSortTable(*scan);
 			tab_num = 2;
 			cout << "Таблица отсортирована" << endl;
 			break;

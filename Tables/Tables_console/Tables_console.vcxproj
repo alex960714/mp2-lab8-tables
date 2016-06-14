@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Александр\Documents\GitHub\mp2-lab8-tables\Tables\Tables;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Александр\Documents\GitHub\mp2-lab8-tables\Tables\Tables_lib;C:\Users\Александр\Documents\GitHub\mp2-lab8-tables\Tables\Tables;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -89,11 +89,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Александр\Documents\GitHub\mp2-lab8-tables\Tables\Tables;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Александр\Documents\GitHub\mp2-lab8-tables\Tables\Tables_lib;C:\Users\Александр\Documents\GitHub\mp2-lab8-tables\Tables\Tables;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Tables_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Александр\Documents\GitHub\mp2-lab8-tables\Tables\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -160,8 +162,8 @@
     <ClCompile Include="Tables_console.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tables\Tables.vcxproj">
-      <Project>{d77a9fd8-4f6f-4ea3-a53d-6b930ba1d030}</Project>
+    <ProjectReference Include="..\Tables_lib\Tables_lib.vcxproj">
+      <Project>{f212226e-a353-4646-8ee4-cd1b83ee9b28}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
